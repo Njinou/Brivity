@@ -5,14 +5,14 @@ const TextInputComponent = (props)=>{
     const [input,setInput] = useState('')
     const [placeholder,setPlaceholder] = useState('placeholder')
     const GetInput = (val) => setInput(val);
-    
+
     return (
         <TextInput 
             onSubmitEditing={props.onSubmitEditing}
             multiligne={true}   
             numberOfLines={props.numberOfLines?props.numberOfLines:4} 
             value={props.value? props.value:input} 
-            style={props.style?props.style:styles.inputStyle} 
+            style={props.style?[props.style,styles.inputStyle]:styles.inputStyle} 
             placeholder= {props.placeholder?props.placeholder: placeholder}  
             onChangeText ={props.onChangeText? props.onChangeText:GetInput}
         />
