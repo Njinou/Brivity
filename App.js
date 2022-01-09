@@ -20,8 +20,7 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-import ItemComponent from './src/components/common/item/ItemComponent';
-import ListItemsComponent from './src/components/common/list/ListItemsComponent';
+import AuthComponent from './src/components/common/auth/AuthComponent';
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -34,12 +33,8 @@ const App: () => Node = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ListItemsComponent data={[{id:1,name:"Nitcheu"},{id:2,name:"Mbouendeu"},{id:3,name:"Mbouend"},{id:4,name:"Mbouende"},{id:5,name:"Mboue"},{id:6,name:"Mbouendeu"}
-    
-    ,{id:7,name:"Mbouende"},{id:8,name:"Mboue"},{id:9,name:"Mbouendeu"},
-    
-    {id:10,name:"Mbouende"},{id:11,name:"Mboue"},{id:12,name:"Mbouendeu"}]} />
-    </SafeAreaView>
+      <AuthComponent />
+     </SafeAreaView>
   );
 };
 
