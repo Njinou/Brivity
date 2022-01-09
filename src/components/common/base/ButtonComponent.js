@@ -5,7 +5,7 @@ const ButtonComponent = (props)=>{
         const [buttonTitle, setButtonTitle] = useState("button")
         const PressedButton  = () => console.log("pressed button");
     return (
-        <TouchableOpacity style={styles.touchableStyle} onPress={props.func? props.func: PressedButton}>
+        <TouchableOpacity style={[props.style,styles.touchableStyle]} onPress={props.func? props.func: PressedButton}>
             <Text style={{fontSize:16,fontWeight:'bold'}}>
                 {props.title? props.title: buttonTitle}
             </Text>
@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     touchableStyle : {
         alignItems:'center',
         backgroundColor:'red',
-        padding:10,
+        paddingHorizontal:25,
+        paddingVertical:10,
         marginHorizontal:20,
         borderRadius:25
     }
