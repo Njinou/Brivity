@@ -5,12 +5,10 @@ const ButtonComponent = (props)=>{
         const [buttonTitle, setButtonTitle] = useState("button")
         const PressedButton  = () => console.log("pressed button");
     return (
-        <TouchableOpacity onPress={props.func? props.func: PressedButton}>
-            <View style={props.viewStyle?props.viewStyle: styles.viewStyle}>
-                <Text style={props.titleStyle? props.titleStyle:styles.titleStyle}>
-                    {props.title? props.title: buttonTitle}
-                </Text>
-            </View>
+        <TouchableOpacity style={styles.touchableStyle} onPress={props.func? props.func: PressedButton}>
+            <Text style={{fontSize:16,fontWeight:'bold'}}>
+                {props.title? props.title: buttonTitle}
+            </Text>
         </TouchableOpacity>
     );
 }
@@ -18,11 +16,20 @@ const styles = StyleSheet.create({
     viewStyle:{
         flex:1,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        backgroundColor:'red'
     },
     titleStyle:{
         color:'red',
-        padding:20
+        padding:20,
+        backgroundColor:'blue'
+    },
+    touchableStyle : {
+        alignItems:'center',
+        backgroundColor:'red',
+        padding:10,
+        marginHorizontal:20,
+        borderRadius:25
     }
 
 })
