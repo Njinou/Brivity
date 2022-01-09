@@ -3,13 +3,14 @@ import {Text,StyleSheet} from 'react-native';
 
 const TextComponent = (props)=>{
     return (
-        <Text style={props.style? props.style:styles.text}>{props.textStyle?props.textStyle:"change text"}</Text>
+        <Text style={props.style? props.style:styles.text}>{props.text?props.text:"change text"}</Text>
     );
 }
 const styles = StyleSheet.create({
     textStyle:{
+        flex:1,
         color:'red',
         fontSize:14
     }
 })
-export default TextInputComponent;
+export default TextComponent;
