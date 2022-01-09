@@ -22,6 +22,7 @@ import {
 
 import AuthComponent from './src/components/common/auth/AuthComponent';
 import ListItemsComponent from './src/components/common/list/ListItemsComponent';
+import SignUpScreen from './src/components/auth/signup/SignUpScreen';
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -34,10 +35,10 @@ const App: () => Node = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AuthComponent />
+      <SignUpScreen />
      </SafeAreaView>
   );
-};
+}; 
 
 const styles = StyleSheet.create({
   sectionContainer: {
