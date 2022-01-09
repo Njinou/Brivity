@@ -21,6 +21,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import AuthComponent from './src/components/common/auth/AuthComponent';
+import ListItemsComponent from './src/components/common/list/ListItemsComponent';
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
