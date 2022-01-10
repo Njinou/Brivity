@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React,{useState} from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -23,8 +23,15 @@ import {
 import AuthComponent from './src/components/common/auth/AuthComponent';
 import ListItemsComponent from './src/components/common/list/ListItemsComponent';
 import SignUpScreen from './src/components/auth/signup/SignUpScreen';
+import Context from './src/context/Context';
 
 const App: () => Node = () => {
+  const [tokenContext,setTokenContext] = useState("token");
+  const [isAuthenticatedContext,setIsAuthenticatedContext] = useState(false);
+
+  const settingContextToken = (val) => setTokenContext(val);
+  const setAuthenticationContext = ()  => setIsAuthenticatedContext(true);
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -35,7 +42,9 @@ const App: () => Node = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <SignUpScreen />
+      <Context.Provider value={{tokenContext,isAuthenticatedContext,settingContextToken,setAuthenticationContext}} >
+        <SignUpScreen />
+      </Context.Provider>
      </SafeAreaView>
   );
 }; 

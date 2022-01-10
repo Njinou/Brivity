@@ -1,7 +1,9 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import {Text} from 'react-native';
 import AuthComponent from '../../common/auth/AuthComponent';
 import TextInputComponent  from '../../common/base/TextInputComponent';
+
+import Context from '../../../context/Context';
 
 const SignUpScreen = (props) =>{
     const [username,setUsername] = useState('');
@@ -9,15 +11,11 @@ const SignUpScreen = (props) =>{
     const [password,setPassword] = useState('');
     const [token,setToken] = useState(null);
     const [initialData,setInitialData] = useState([]);
-    useEffect( ()=>{
-        
-    },[])
-
-
+    
     const gettingInput1 = (val) => setUsername(val);
     const gettingInput2 = (val) => setEmail(val);
     const gettingInput3 = (val) => setPassword(val);
-  
+    const {tokenContext,isAuthenticatedContext,settingContextToken,setAuthenticationContext} = useContext(Context)
     const signUpFunc = async () => { //url
         const obj = {"user": {"email": email, 
         "password": password, 
@@ -39,10 +37,12 @@ const SignUpScreen = (props) =>{
         tok = tok.split(" ");
         console.log("token token",tok);
         setToken(tok[1]);
+        settingContextToken(tok[1]);
+        setAuthenticationContext();
         console.log("cela ne veut rien dire pour toi....  ",jsonData);
         setInitialData(jsonData);
     }
-
+    console.log("token from context",tokenContext);
     return (
         <AuthComponent title="Sign UP" 
             onChangeText1={gettingInput1} 
