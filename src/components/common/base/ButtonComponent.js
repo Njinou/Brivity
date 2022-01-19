@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import {TouchableOpacity,View,Text,StyleSheet} from 'react-native';
-
+import {TouchableOpacity,View,Text,StyleSheet,Pressable} from 'react-native';
+ 
 const ButtonComponent = (props)=>{
         const [buttonTitle, setButtonTitle] = useState("button")
         const PressedButton  = () => console.log("pressed button");
     return (
-        <TouchableOpacity style={[props.style,styles.touchableStyle]} onPress={props.func? props.func: PressedButton}>
-            <Text style={{fontSize:16,fontWeight:'bold'}}>
+        <Pressable style={[styles.touchableStyle,props.style]} onPress={props.func? props.func: PressedButton}>
+            <Text style={{fontSize:16,fontWeight:'bold'},props.textStyle}>
                 {props.title? props.title: buttonTitle}
             </Text>
-        </TouchableOpacity>
+        </Pressable>
     );
 }
 const styles = StyleSheet.create({

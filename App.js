@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React,{useState} from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -22,9 +22,19 @@ import {
 
 import AuthComponent from './src/components/common/auth/AuthComponent';
 import ListItemsComponent from './src/components/common/list/ListItemsComponent';
-import SignUpScreen from './src/components/auth/signup/SignUpScreen';
+import DashBoardScreen from './src/components/dashboard/DashBoardScreen';
 
+import SignUpScreen from './src/components/auth/signup/SignUpScreen';
+import Context from './src/context/Context';
+import ErrorBoundary from './src/errors/ErrorBoundary';
 const App: () => Node = () => {
+  const [tokenContext,setTokenContext] = useState("token");
+  const [isAuthenticatedContext,setIsAuthenticatedContext] = useState(false);
+  const [user,setUser] = useState({});
+
+  const settingContextToken = (val) => setTokenContext(val);
+  const setAuthenticationContext = ()  => setIsAuthenticatedContext(!isAuthenticatedContext);
+  const settingUser = (val) =>setUser(val)
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -35,7 +45,11 @@ const App: () => Node = () => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <SignUpScreen />
+      <ErrorBoundary>
+        <Context.Provider value={{tokenContext,isAuthenticatedContext,user,settingContextToken,setAuthenticationContext,settingUser}} >
+          {isAuthenticatedContext? <DashBoardScreen/>: <SignUpScreen />}
+        </Context.Provider>
+      </ErrorBoundary>
      </SafeAreaView>
   );
 }; 

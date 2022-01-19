@@ -22,7 +22,7 @@ const TextInputComponent = (props)=>{
 }
 const styles = StyleSheet.create({
     inputStyle:{
-        margin:20,
+        margin:10,
         borderColor:'black',
         borderWidth:2,
         borderRadius:5,
