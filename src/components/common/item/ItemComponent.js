@@ -17,7 +17,7 @@ const ItemComponent = (props) =>{
                         <TextComponent style={{color:'black',textDecorationLine: 'underline',}} text = { new Date(props?.item?.created_at).toLocaleDateString() }/>
                     </View>
                 </View>
-                <Pressable>
+                <Pressable onPress={()=> alert("Set the edit function here")}>
                     <Text style={{fontWeight:'bold',fontSize:20}}>...</Text>
                 </Pressable>
             </View>
