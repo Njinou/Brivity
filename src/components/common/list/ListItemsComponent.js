@@ -6,9 +6,8 @@ const ListItemsComponent = (props) =>{
     return (
         <FlatList 
             data={props.data?props.data:[]}
-            renderItem={ (elmnt) =>  <ItemComponent item={elmnt.item}/>}
+            renderItem={ (elmnt,index) =>  <ItemComponent key={elmnt.key || index} item={elmnt.item}/>}
             keyExtractor={item=> item.id}
-
         />
     ) 
 }

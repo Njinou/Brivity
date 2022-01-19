@@ -4,6 +4,8 @@ import AuthComponent from '../../common/auth/AuthComponent';
 import TextInputComponent  from '../../common/base/TextInputComponent';
 
 import Context from '../../../context/Context';
+import urls from '../../../api/urls';
+import text from '../../../text/text';
 
 const SignUpScreen = (props) =>{
     const [username,setUsername] = useState('');
@@ -11,53 +13,67 @@ const SignUpScreen = (props) =>{
     const [password,setPassword] = useState('');
     const [token,setToken] = useState(null);
     const [initialData,setInitialData] = useState([]);
-    
+    const [isAuthLog,setIsAuthLog]= useState(true);
+    const [fetchUrl,setFetchUrl] = useState (urls.auth.login);
+    const [error,setError] = useState(null)
     const gettingInput1 = (val) => setUsername(val);
     const gettingInput2 = (val) => setEmail(val);
     const gettingInput3 = (val) => setPassword(val);
-    const {tokenContext,isAuthenticatedContext,settingContextToken,setAuthenticationContext} = useContext(Context)
-    const signUpFunc = async () => { //url
-        const obj = {"user": {"email": email, 
-        "password": password, 
-        "display_name": username}};
-        let  data  = await fetch('https://brivity-react-exercise.herokuapp.com/users', {
+
+    const {tokenContext,isAuthenticatedContext,settingUser,settingContextToken,setAuthenticationContext} = useContext(Context)
+    const changeAuthScreen = ()=>{
+        setFetchUrl(isAuthLog?urls.auth.signup : urls.auth.login );
+        setIsAuthLog(!isAuthLog);
+    }
+    const signUpFunc = async () => {
+        try{
+        const obj = isAuthLog ? {"user": {"email": email, 
+                                    "password": password
+                                }}: 
+                            {"user": {"email": email, 
+                                "password": password, 
+                                "display_name": username
+                            }};
+         let  data  = await fetch(fetchUrl, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          // 'Authorization': 'Basic '+btoa('username:password'), 
-          //"authorization": "Bearer 
-        
-        },
+         },
         body: JSON.stringify(obj)
         });
-         //setToken(data.headers.map.authorization.split(" ")[1])
-        let jsonData = await  data.json();
-        let tok = data.headers.map.authorization;
-        tok = tok.split(" ");
-        console.log("token token",tok);
+        let jsonData = await  data?.json();
+        let tok = data?.headers?.map?.authorization;
+        tok = tok?.split(" ");
         setToken(tok[1]);
         settingContextToken(tok[1]);
         setAuthenticationContext();
-        console.log("cela ne veut rien dire pour toi....  ",jsonData);
-        setInitialData(jsonData);
+        settingUser(jsonData);
+    }catch(e){
+        console.log("this is the error ",e);
+        setError(e.message);
     }
-    console.log("token from context",tokenContext);
+    }
     return (
-        <AuthComponent title="Sign UP" 
+        <AuthComponent title={text.auth.signUp}
             onChangeText1={gettingInput1} 
             onChangeText2={gettingInput2}
             onChangeText3={gettingInput3} 
-            placeholder1 = "Display Name"
-            placeholder2 = "Email"
-            placeholder3 = "Password"
+            error ={error}
+            placeholder1 ={text?.auth?.displayName}
+            placeholder2 = {text?.auth?.email}
+            placeholder3 = {text?.auth?.password}
             value1 = {username}
+            showingDisplayNameField={!isAuthLog}
             value2 = {email}
             value3 ={password}
             secureTextEntry3={true}
             keyboardType={'email-address'}
             func={signUpFunc}
             comp={true} 
+            buttonTitle= {isAuthLog?  text?.auth?.login : text?.auth?.signUp}
+            alternative= {isAuthLog?  text?.auth?.createAccount : text?.auth?.SigninAccount}
+            textPress={changeAuthScreen}
         />
     )
 }
